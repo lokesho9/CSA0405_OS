@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <unistd.h>
+int main() {
+    int pid = fork();
+    if (pid == 0)
+        printf("Child Process: PID=%d, PPID=%d\n", getpid(), getppid());
+    else
+        printf("Parent Process: PID=%d, Child PID=%d\n", getpid(), pid);
+    return 0;
+}
+
+OUTPUT: 
+Parent Process: PID=94816, Child PID=94817
+Child Process: PID=94817, PPID=94816
