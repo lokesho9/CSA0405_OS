@@ -1,0 +1,31 @@
+#include <stdio.h>
+int main(){
+    int n,m,i,j,alloc[10][10],max[10][10],need[10][10],avail[10],finish[10]={0},seq[10],count=0;
+    printf("Enter processes and resources: "); scanf("%d %d",&n,&m);
+    printf("Allocation:\n"); for(i=0;i<n;i++) for(j=0;j<m;j++) scanf("%d",&alloc[i][j]);
+    printf("Max:\n"); for(i=0;i<n;i++) for(j=0;j<m;j++) scanf("%d",&max[i][j]);
+    printf("Available:\n"); for(j=0;j<m;j++) scanf("%d",&avail[j]);
+    for(i=0;i<n;i++) for(j=0;j<m;j++) need[i][j]=max[i][j]-alloc[i][j];
+    while(count<n){
+        for(i=0;i<n;i++) if(!finish[i]){
+            int can=1; for(j=0;j<m;j++) if(need[i][j]>avail[j]) can=0;
+            if(can){ for(j=0;j<m;j++) avail[j]+=alloc[i][j]; seq[count++]=i; finish[i]=1; }
+        }
+    }
+    printf("Safe Sequence: "); for(i=0;i<n;i++) printf("P%d ",seq[i]);
+}
+
+OUTPUT:
+
+Enter processes and resources: 3 3
+Allocation:
+0 1 0
+1 2 3
+4 5 6
+Max:
+4 5 6
+5 4 6
+7 8 9
+Available:
+4 5 6
+Safe Sequence: P0 P1 P2
