@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+#include <string.h>
+struct msg{ long type; char text[100]; };
+int main(){
+    int qid=msgget(1234,IPC_CREAT|0666); struct msg m;
+    printf("Enter message: "); fgets(m.text,100,stdin);
+    m.type=1; msgsnd(qid,&m,sizeof(m.text),0);
+    msgrcv(qid,&m,sizeof(m.text),1,0);
+    printf("Received: %s",m.text);
+    msgctl(qid,IPC_RMID,NULL);
+}
+OUTPUT:
+Enter no of processes: 4
+BT P1: 2
+BT P2: 3
+BT P3: 4
+BT P4: 5
+Enter Time Quantum: 4
+P1 finished at 2
+P2 finished at 5
+P3 finished at 9
+P4 finished at 14
