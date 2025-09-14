@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <pthread.h>
+#include <semaphore.h>
+sem_t chop[5];
+void* dine(void* n){
+    int i=*(int*)n;
+    sem_wait(&chop[i]); sem_wait(&chop[(i+1)%5]);
+    printf("Philosopher %d eating\n",i);
+    sem_post(&chop[i]); sem_post(&chop[(i+1)%5]);
+}
+int main(){
+    pthread_t t[5]; int i,id[5];
+    for(i=0;i<5;i++) sem_init(&chop[i],0,1);
+    for(i=0;i<5;i++){ id[i]=i; pthread_create(&t[i],NULL,dine,&id[i]); }
+    for(i=0;i<5;i++) pthread_join(t[i],NULL);
+}
+OUTPUT:
+Philosopher 0 eating
+Philosopher 2 eating
+Philosopher 1 eating
+Philosopher 3 eating
+Philosopher 4 eating
