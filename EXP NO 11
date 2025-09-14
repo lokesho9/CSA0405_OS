@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <pthread.h>
+void* run(void* id){
+    printf("Thread %d running\n",*(int*)id);
+    return NULL;
+}
+int main(){
+    pthread_t t1,t2; int a=1,b=2;
+    pthread_create(&t1,NULL,run,&a);
+    pthread_create(&t2,NULL,run,&b);
+    pthread_join(t1,NULL); pthread_join(t2,NULL);
+}
+OUTPUT:
+Thread 1 running
+Thread 2 running
