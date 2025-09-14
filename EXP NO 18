@@ -1,0 +1,17 @@
+#include <stdio.h>
+int full=0, empty=5, x=0;
+void produce(){ if(empty>0){ x++; full++; empty--; printf("Produced %d\n",x);} else printf("Buffer Full!\n"); }
+void consume(){ if(full>0){ printf("Consumed %d\n",x); x--; full--; empty++; } else printf("Buffer Empty!\n"); }
+int main(){
+    int ch;
+    while(1){
+        printf("1.Produce 2.Consume 3.Exit: "); scanf("%d",&ch);
+        if(ch==1) produce();
+        else if(ch==2) consume();
+        else return 0;
+    }
+}
+OUTPUT:
+Produced item 1
+Produced item 2
+Consumed item 2
