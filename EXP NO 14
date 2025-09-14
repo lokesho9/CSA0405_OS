@@ -1,0 +1,19 @@
+#include <stdio.h>
+int main(){
+    int n,i; char f[10][20];
+    printf("Enter files: "); scanf("%d",&n);
+    for(i=0;i<n;i++) scanf("%s",f[i]);
+    printf("Directory:\n");
+    for(i=0;i<n;i++) printf("%s\n",f[i]);
+} 
+OUTPUT:
+Enter files: 4
+1
+2
+3
+4
+Directory:
+1
+2
+3
+4
